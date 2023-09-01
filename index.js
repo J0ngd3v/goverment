@@ -75,7 +75,7 @@ client.on('group_join', async (notification) => {
       const memeFileName = `meme_${Date.now()}.jpg`;
 
       // Simpan gambar ke folder lokal
-      const memeFolderPath = 'D:/gopermen/memes'; 
+      const memeFolderPath = '/root/botwa/goverment/memes'; 
       const memeFilePath = path.join(memeFolderPath, memeFileName);  // Menggunakan path.join
       fs.writeFileSync(memeFilePath, memeImageData);
 
