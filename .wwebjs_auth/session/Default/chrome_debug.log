@@ -1,4 +1,0 @@
-[0830/173612.201:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'ambient-light-sensor'.", source:  (0)
-[0830/173612.201:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
-[0830/173630.287:INFO:CONSOLE(30)] "Error: Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.", source: https://web.whatsapp.com/vendor1~app.7f14216f970118f62a35.js (30)
-[0830/173630.633:INFO:CONSOLE(30)] "Error: Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.", source: https://web.whatsapp.com/vendor1~app.7f14216f970118f62a35.js (30)
