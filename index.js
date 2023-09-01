@@ -106,7 +106,7 @@ if (msg.body === '.pekob') {
 
   // Download gambar dan simpan ke folder "pekob"
   const imageFileName = path.basename(imageUrl);
-  const imagePath = path.join('/root/botwa/goverment/pekob', imageFileName);
+  const imagePath = path.join('/root/botwa/goverment/pekob/', imageFileName);
 
   const response = await axios({
     method: 'get',
