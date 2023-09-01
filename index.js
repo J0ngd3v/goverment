@@ -51,14 +51,14 @@ client.on('group_join', async (notification) => {
 
   client.on('message', async (msg) =>{
 
-  if(msg.body.startsWith('!sticker') && msg.type === 'image'){
+  if(msg.body.startsWith('.sticker') && msg.type === 'image'){
       const media = await msg.downloadMedia();
       client.sendMessage(msg.from,media,{
         sendMediaAsSticker:true,
       });
     }
 
-  if (msg.body === '!update') {
+  if (msg.body === '.update') {
     const scrapedData = await scrapeData();
     saveToJson(scrapedData, 'meme.json');
     
