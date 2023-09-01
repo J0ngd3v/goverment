@@ -94,7 +94,7 @@ client.on('group_join', async (notification) => {
   
 if (msg.body === '.pekob') {
   // Baca data dari pekob.json
-  const rawData = fs.readFileSync('pekob.json');
+  const rawData = fs.readFileSync('/root/botwa/goverment/pekob.json');
   const pekobData = JSON.parse(rawData);
 
   // Pilih acak satu item dari pekobData
@@ -106,7 +106,7 @@ if (msg.body === '.pekob') {
 
   // Download gambar dan simpan ke folder "pekob"
   const imageFileName = path.basename(imageUrl);
-  const imagePath = path.join('pekob', imageFileName);
+  const imagePath = path.join('/root/botwa/goverment/pekob', imageFileName);
 
   const response = await axios({
     method: 'get',
