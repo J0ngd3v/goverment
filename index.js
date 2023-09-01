@@ -131,6 +131,17 @@ if (msg.body === '.pekob') {
   }
 }
 
+if (msg.body === '.getgroupinfo') {
+  // Dapatkan informasi grup
+  const chat = await msg.getChat();
+  const groupName = chat.name;
+  const groupId = chat.id._serialized; // Ini adalah ID grup
+
+  // Kirim informasi grup sebagai pesan
+  const infoMessage = `Nama Grup: ${groupName}\nID Grup: ${groupId}`;
+  await msg.reply(infoMessage);
+}
+
 });
 
 
