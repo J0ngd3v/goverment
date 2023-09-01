@@ -142,18 +142,20 @@ if (msg.body === '.getgroupinfo') {
   await msg.reply(infoMessage);
 }
 
-// Notifikasi war 
-const hariTarget = 0; // 0 adalah hari Minggu
-const jamTarget = 20; // 20 adalah jam 8 malam (24-jam)
+ // Tentukan hari dan waktu untuk mengirim notifikasi (Sesuaikan dengan waktu pengujian)
+ const hariTarget = 0; // 0 adalah hari Minggu
+ const jamTarget = 20; // 20 adalah jam 8 malam
+ const menitTarget = 20; // 20 adalah menit ke-20
 
 setInterval(() => {
   const sekarang = new Date();
   const hariSekarang = sekarang.getDay(); // Mengembalikan hari dalam bentuk 0 (Minggu) hingga 6 (Sabtu)
   const jamSekarang = sekarang.getHours(); // Mengembalikan jam dalam bentuk 0 hingga 23
+  const menitSekarang = sekarang.getMinutes(); // Mengembalikan menit dalam bentuk 0 hingga 59
 
-  if (hariSekarang === hariTarget && jamSekarang === jamTarget) {
-    // Waktu sesuai (Pada pukul 20:00), kirim notifikasi ke grup
-    const grupId = '120363166399765427@g.us'; // Ganti dengan ID grup yang sesuai
+  if (hariSekarang === hariTarget && jamSekarang === jamTarget && menitSekarang === menitTarget) {
+    // Waktu sesuai (Pada pukul 20:20), kirim notifikasi ke grup
+    const grupId = 'Goverment | Milkchoco'; // Ganti dengan ID grup yang sesuai
     const pesanNotifikasi = 'Hari ini malam Sabtu atau Minggu pagi, diusahakan nanti jam 8 malam war, sekian terimakasih. ~ @tag_all';
 
     // Kirim notifikasi hanya jika bot sudah tergabung dalam grup
