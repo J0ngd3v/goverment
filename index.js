@@ -100,32 +100,37 @@ if (msg.body === '.pekob') {
   // Pilih acak satu item dari pekobData
   const randomItem = pekobData[Math.floor(Math.random() * pekobData.length)];
 
-  // Dapatkan URL gambar dan thumbnail
+  // Dapatkan URL gambar dari item yang dipilih
   const imageUrl = randomItem.thumbnail;
-  const linkUrl = randomItem.href;
 
-  // Download gambar dan simpan ke folder "pekob"
-  const imageFileName = path.basename(imageUrl);
-  const imagePath = path.join('/root/botwa/goverment/pekob/', imageFileName);
+  // Download gambar
+  const imageFileName = `pekob_${Date.now()}.jpg`;
+  const imagePath = path.join('/root/botwa/goverment/pekob', imageFileName);
 
-  const response = await axios({
-    method: 'get',
-    url: imageUrl,
-    responseType: 'stream',
-  });
+  try {
+    const response = await axios({
+      method: 'get',
+      url: imageUrl,
+      responseType: 'stream',
+    });
 
-  response.data.pipe(fs.createWriteStream(imagePath));
+    response.data.pipe(fs.createWriteStream(imagePath));
 
-  response.data.on('end', async () => {
-    // Kirim gambar sebagai media
-    const media = MessageMedia.fromFilePath(imagePath);
-    await msg.reply(media);
+    response.data.on('end', async () => {
+      // Kirim gambar sebagai media
+      const media = MessageMedia.fromFilePath(imagePath);
+      await msg.reply(media);
 
-    // Kemudian, kirim pesan teks dengan URL
-    const linkMessage = `Link nya bor : \n${linkUrl}`;
-    await msg.reply(linkMessage);
-  });
+      // Kemudian, kirim pesan teks dengan URL
+      const linkMessage = `Link nya bor : \n${randomItem.href}`;
+      await msg.reply(linkMessage);
+    });
+  } catch (error) {
+    console.error('Terjadi kesalahan:', error);
+    await msg.reply('Maaf, terjadi kesalahan saat mengirim gambar.');
+  }
 }
+
 });
 
 
