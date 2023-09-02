@@ -18,6 +18,29 @@ client.on('qr', (qr) => {
 
 client.on('ready', () => {
   console.log('Client is ready!');
+
+
+  const hariTarget = 6; // 0 adalah hari Minggu
+  const jamTarget = 19; // 20 adalah jam 8 malam
+  const menitTarget = 45; // 20 adalah menit ke-20
+
+  setInterval(async () => {
+    const sekarang = new Date();
+    const hariSekarang = sekarang.getDay(); // Mengembalikan hari dalam bentuk 0 (Minggu) hingga 6 (Sabtu)
+    const jamSekarang = sekarang.getHours(); // Mengembalikan jam dalam bentuk 0 hingga 23
+    const menitSekarang = sekarang.getMinutes(); // Mengembalikan menit dalam bentuk 0 hingga 59
+
+    if (hariSekarang === hariTarget && jamSekarang === jamTarget && menitSekarang === menitTarget) {
+      // Waktu sesuai (Pada pukul 20:20), kirim pesan ke grup
+      const grupId = '120363165617555333@g.us'; // Ganti dengan ID grup yang sesuai
+      const pesanNotifikasi = 'Assalamualaikum Hari ini malam Sabtumalam minggu, diusahakan nanti jam 8 malam war, Bagi yang tidak ikut war akan saya tusbol. sekian terimakasih. ~ Bot Admin';
+
+      // Kirim pesan ke grup
+      await client.sendMessage(grupId, pesanNotifikasi);
+      console.log('Pesan berhasil dikirim ke grup!');
+    }
+  }, 60000);
+
 });
 
 client.on('group_join', async (notification) => {
@@ -142,41 +165,8 @@ if (msg.body === '.getgroupinfo') {
   await msg.reply(infoMessage);
 }
 
- // Tentukan hari dan waktu untuk mengirim notifikasi (Sesuaikan dengan waktu pengujian)
- const hariTarget = 0; // 0 adalah hari Minggu
- const jamTarget = 20; // 20 adalah jam 8 malam
- const menitTarget = 20; // 20 adalah menit ke-20
 
-setInterval(() => {
-  const sekarang = new Date();
-  const hariSekarang = sekarang.getDay(); // Mengembalikan hari dalam bentuk 0 (Minggu) hingga 6 (Sabtu)
-  const jamSekarang = sekarang.getHours(); // Mengembalikan jam dalam bentuk 0 hingga 23
-  const menitSekarang = sekarang.getMinutes(); // Mengembalikan menit dalam bentuk 0 hingga 59
 
-  if (hariSekarang === hariTarget && jamSekarang === jamTarget && menitSekarang === menitTarget) {
-    // Waktu sesuai (Pada pukul 20:20), kirim notifikasi ke grup
-    const grupId = 'Goverment | Milkchoco'; // Ganti dengan ID grup yang sesuai
-    const pesanNotifikasi = 'Hari ini malam Sabtu atau Minggu pagi, diusahakan nanti jam 8 malam war, sekian terimakasih. ~ @tag_all';
-
-    // Kirim notifikasi hanya jika bot sudah tergabung dalam grup
-    const chat = client.getChatById(grupId);
-    if (chat) {
-      // Mengambil daftar anggota grup
-      const groupMembers = chat.participants;
-
-      // Buat teks notifikasi dengan mentions untuk semua anggota
-      let mentionText = pesanNotifikasi.replace('@tag_all', `@admin`);
-
-      groupMembers.forEach((member) => {
-        mentionText += ` @${member.id.user}`;
-      });
-
-      // Kirim notifikasi dengan mentions ke grup
-      client.sendMessage(grupId, mentionText);
-      console.log('Notifikasi berhasil dikirim!');
-    }
-  }
-}, 60000); 
 });
 
 
