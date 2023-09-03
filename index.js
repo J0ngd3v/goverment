@@ -21,8 +21,8 @@ client.on('ready', () => {
 
 
   const hariTarget = 6; // 0 adalah hari Minggu
-  const jamTarget = 19; // 20 adalah jam 8 malam
-  const menitTarget = 45; // 20 adalah menit ke-20
+  const jamTarget = 20; // 20 adalah jam 8 malam
+  const menitTarget = 0; // 20 adalah menit ke-20
 
   setInterval(async () => {
     const sekarang = new Date();
@@ -33,7 +33,7 @@ client.on('ready', () => {
     if (hariSekarang === hariTarget && jamSekarang === jamTarget && menitSekarang === menitTarget) {
       // Waktu sesuai (Pada pukul 20:20), kirim pesan ke grup
       const grupId = '120363165617555333@g.us'; // Ganti dengan ID grup yang sesuai
-      const pesanNotifikasi = 'Assalamualaikum Hari ini malam Sabtumalam minggu, diusahakan nanti jam 8 malam war, Bagi yang tidak ikut war akan saya tusbol. sekian terimakasih. ~ Bot Admin';
+      const pesanNotifikasi = 'Assalamualaikum Hari ini Sabtu malam minggu, diusahakan nanti jam 8 malam war, Bagi yang tidak ikut war akan saya tusbol. sekian terimakasih. ~ Bot Admin';
 
       // Kirim pesan ke grup
       await client.sendMessage(grupId, pesanNotifikasi);
@@ -166,6 +166,60 @@ if (msg.body === '.getgroupinfo') {
 }
 
 
+if (msg.body === '.oppai') {
+  try {
+    // Ganti dengan URL API yang sesuai untuk mengambil gambar oppai secara dinamis
+    const apiUrl = 'https://api.waifu.im/search?included_tags=oppai';
+    const response = await axios.get(apiUrl);
+
+    if (response.status === 200 && response.data.images.length > 0) {
+      const imageUrl = response.data.images[0].url; // Mengambil URL gambar dari hasil API
+      const imageResponse = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+
+      if (imageResponse.status === 200) {
+        // Mengonversi data gambar ke format pesan media WhatsApp
+        const media = new MessageMedia('image/png', imageResponse.data.toString('base64'));
+        const caption = 'Ini oppai nya para pengocok handal';
+
+        // Mengirim pesan dengan media dan teks
+        await client.sendMessage(msg.from, media, { caption });
+      } else {
+        await client.sendMessage(msg.from, 'Tidak dapat mengunduh gambar oppai saat ini.');
+      }
+    } else {
+      await client.sendMessage(msg.from, 'Tidak ada gambar oppai yang ditemukan.');
+    }
+  } catch (error) {
+    console.error('Terjadi kesalahan:', error);
+    await client.sendMessage(msg.from, 'Terjadi kesalahan saat mengunduh gambar oppai.');
+  }
+}
+
+if (msg.body === '.menu') {
+  const menuMessage = `
+📋 *Menu Utama* 📋
+
+*1. Stiker*
+Kirim gambar dengan caption ".stiker" untuk mengubahnya menjadi stiker.
+
+*2. Meme Acak*
+Kirim ".meme" untuk mendapatkan meme acak.
+
+*3. Pekob of the Day*
+Kirim ".pekob" untuk melihat Pekob of the Day.
+
+*4. Info Grup*
+Kirim ".getgroupinfo" untuk mendapatkan informasi tentang grup ini.
+
+*5. Oppai Seksi*
+Kirim ".oppai" untuk melihat gambar oppai seksi. 😏
+
+Selamat menikmati penggunaan bot ini! 🤖🎉
+  `;
+
+  // Mengirim pesan menu ke pengguna
+  await client.sendMessage(msg.from, menuMessage);
+}
 
 });
 
