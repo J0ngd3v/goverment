@@ -221,8 +221,44 @@ Selamat menikmati penggunaan bot ini! 🤖🎉
   await client.sendMessage(msg.from, menuMessage);
 }
 
+
+
+
+
+
+
 });
 
+
+// Menangani pesan yang diterima
+client.on('message', async (message) => {
+  const userMessage = message.body.toLowerCase(); // Mengubah pesan pengguna menjadi huruf kecil
+
+  // Memeriksa apakah pesan pengguna mengandung perintah yang sesuai
+  if (userMessage.startsWith('.kirim ')) {
+    const command = userMessage.slice(7); // Menghilangkan perintah dari pesan pengguna
+
+    // Memeriksa apakah pesan mengandung spasi
+    const spaceIndex = command.indexOf(' ');
+
+    // Memeriksa apakah pesan memiliki spasi dan panjang pesan cukup
+    if (spaceIndex !== -1 && spaceIndex + 1 < command.length) {
+      const targetNumber = command.slice(0, spaceIndex);
+      const textToSend = command.slice(spaceIndex + 1);
+
+      // Memastikan nomor target dan pesan tidak kosong
+      if (targetNumber && textToSend) {
+        // Kirim pesan ke nomor target
+        await client.sendMessage(`${targetNumber}@c.us`, textToSend);
+        message.reply(`Pesan berhasil dikirim ke ${targetNumber}`);
+      } else {
+        message.reply('Format perintah salah. Gunakan format ".kirim nomorpesan".');
+      }
+    } else {
+      message.reply('Format perintah salah. Gunakan format ".kirim nomorpesan".');
+    }
+  }
+});
 
 
 
