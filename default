@@ -19,9 +19,9 @@
 # Default server configuration
 
 server {
-	listen 443;
-	listen [::]:443;
-	server_name ufa.my.id;
+	listen 443  default_server;
+	listen [::]:443  default_server;
+	
 
 	# SSL configuration
 	#
@@ -40,7 +40,7 @@ server {
 	# include snippets/snakeoil.conf;
 
 	root /var/www/html;
-
+	server_name _;
 	# Add index.php to the list if you are using PHP
 	index index.html index.htm index.nginx-debian.html;
 
