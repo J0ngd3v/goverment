@@ -50,7 +50,10 @@ server {
 		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
 	}
-
+	location /phpmyadmin {
+	    alias /var/www/html/phpmyadmin;
+	    index index.php;
+	}
 	# pass PHP scripts to FastCGI server
 	#
 	#location ~ \.php$ {
